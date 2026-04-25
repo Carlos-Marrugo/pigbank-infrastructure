@@ -1,0 +1,18 @@
+services:
+  localstack:
+    container_name: pigbank-localstack
+    image: localstack/localstack:latest
+    ports:
+      - "127.0.0.1:4566:4566"
+      - "127.0.0.1:4510-4559:4510-4559"
+    environment:
+      - LOCALSTACK_AUTH_TOKEN=${LOCALSTACK_AUTH_TOKEN}
+      - DEBUG=0
+      - PERSISTENCE=1
+      - SERVICES=dynamodb,s3,sqs,secretsmanager,lambda,iam,apigateway
+    volumes:
+      - localstack-data:/var/lib/localstack
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  localstack-data:
